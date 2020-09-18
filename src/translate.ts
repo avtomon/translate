@@ -24,13 +24,19 @@ export class Translate {
             cookieLocaleArray = document.cookie.match(regExp),
             cookieLocale = cookieLocaleArray && (cookieLocaleArray.length > 1) ? cookieLocaleArray[1] : null;
 
-        return (cookieLocale
+        let locale =  (cookieLocale
             || navigator['userLanguage']
             || navigator['language']
             || navigator['browserLanguage']
             || navigator['systemLanguage']
             || 'en_US'
         ).replace('-', '_');
+
+        if (!locale.includes('_')) {
+            locale = `${locale}_${locale.toUpperCase()}`;
+        }
+
+        return locale;
     }
 
     /**
